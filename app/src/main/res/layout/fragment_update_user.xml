@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:padding="24dp"
+    android:background="@drawable/bottom_sheet_bg"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_marginBottom="12dp"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:text="@string/ma_lumotlarni_yangilash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/update_name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:background="@drawable/login_et_bg"
+        android:hint="@string/ism"
+        android:inputType="textCapWords"
+        android:maxLines="1"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/update_lastname"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:background="@drawable/login_et_bg"
+        android:hint="@string/familiya"
+        android:inputType="textCapWords"
+        android:maxLines="1"
+        android:paddingHorizontal="16dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        android:textSize="18sp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/update_btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:textColor="@color/button_color"
+        android:text="@string/saqlash"
+        app:cornerRadius="24dp"
+        android:layout_marginTop="16dp"
+        app:backgroundTint="@color/colorAccent"/>
+
+
+
+</LinearLayout>

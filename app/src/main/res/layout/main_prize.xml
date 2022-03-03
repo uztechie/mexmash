@@ -1,0 +1,90 @@
+<com.google.android.material.card.MaterialCardView
+    android:layout_marginHorizontal="12dp"
+    android:layout_marginVertical="4dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/adapter_prize_layout"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_margin="8dp"
+            android:id="@+id/home_prize_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:scaleType="fitXY"
+            android:src="@color/black"
+            app:riv_corner_radius="@dimen/_16sdp"
+            app:riv_border_width="0dp"
+            app:riv_border_color="#333333"
+            app:riv_mutate_background="true"
+            app:riv_tile_mode="repeat"
+            app:riv_oval="false"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:id="@+id/home_prize_cup"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="8dp"
+            app:tint="@color/bronze"
+            android:src="@drawable/award"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <LinearLayout
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/home_prize_image"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_marginTop="8dp"
+                android:id="@+id/home_prize_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_marginTop="4dp"
+                android:id="@+id/home_prize_point"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ball"
+                android:textColor="@color/grayLight"
+                android:textSize="@dimen/_16sdp" />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/home_prize_kg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="KG"
+                android:textColor="@color/grayLight"
+                android:textSize="@dimen/_16sdp" />
+        </LinearLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

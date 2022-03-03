@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="bottomSheetStyle" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/bottomSheetBg</item>
+
+    </style>
+
+    <style name="bottomSheetBg" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+
+
+
+    <style name="customDatePickerStyle" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="android:datePickerStyle">@style/customDatePicker</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+    </style>
+
+    <style name="customDatePicker" parent="@android:style/Widget.Material.Light.DatePicker">
+        <item name="android:datePickerMode">spinner</item>
+        <item name="android:calendarViewShown">false</item>
+    </style>
+
+
+
+
+</resources>

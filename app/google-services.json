@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "207242735046",
+    "project_id": "mexmash-231f7",
+    "storage_bucket": "mexmash-231f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:207242735046:android:263b0cc6b9d141ac2756c7",
+        "android_client_info": {
+          "package_name": "uz.techie.mexmash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "207242735046-627eafj5ggio9ihr6h5paobg1k2009a5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJ85KM43P4tV5EpEgnMZJpRaPYV-4MTqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "207242735046-627eafj5ggio9ihr6h5paobg1k2009a5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    app:cardElevation="2dp"
+    app:cardCornerRadius="8dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginVertical="6dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_marginVertical="8dp"
+            android:layout_marginHorizontal="12dp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/adapter_product_logo"
+                android:layout_width="100dp"
+                android:layout_height="20sp"
+                app:tint="@color/colorPrimary"
+                android:src="@drawable/full_logo_white"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="2dp"
+                    android:background="@drawable/primary_rounded_bg"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="16dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/white"
+                    android:text="point"
+                    android:id="@+id/adapter_product_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:adjustViewBounds="true"
+            android:id="@+id/adapter_product_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mexmash_header"/>
+
+        <TextView
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginHorizontal="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/adapter_product_title"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="Title" />
+
+        <TextView
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:layout_marginHorizontal="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/adapter_product_short_desc"
+            android:textColor="@color/grayDark"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:text="Short" />
+
+
+        <TextView
+            android:visibility="gone"
+            android:layout_marginHorizontal="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/adapter_product_full_desc"
+            android:textColor="@color/grayDark"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:text="Short" />
+
+        <ImageView
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginVertical="8dp"
+            android:id="@+id/adapter_product_arrow"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_baseline_keyboard_arrow_down_24"
+            app:tint="@color/grayDark"/>
+
+
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
