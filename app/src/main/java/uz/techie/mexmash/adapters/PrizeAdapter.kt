@@ -61,6 +61,7 @@ class PrizeAdapter(val callback:PrizeAdapterCallback):RecyclerView.Adapter<Prize
                     adapter_prize_title.setTextColor(ContextCompat.getColor(context, R.color.white))
                     adapter_prize_point.setTextColor(ContextCompat.getColor(context, R.color.white))
                     adapter_prize_kg.setTextColor(ContextCompat.getColor(context, R.color.white))
+                    adapter_prize_prize_name.setTextColor(ContextCompat.getColor(context, R.color.white))
                 }
                 else{
                     Glide.with(adapter_prize_image)
@@ -76,17 +77,11 @@ class PrizeAdapter(val callback:PrizeAdapterCallback):RecyclerView.Adapter<Prize
                     adapter_prize_kg.visibility = View.GONE
                 }
 
-
-                if (prize.level_id == Constants.LEVEL_SILVER){
-                    adapter_prize_cup.setColorFilter(ContextCompat.getColor(context, R.color.silver))
-                }
-                else if (prize.level_id == Constants.LEVEL_BRONZE){
-                    adapter_prize_cup.setColorFilter(ContextCompat.getColor(context, R.color.bronze))
-                }
-                else if (prize.level_id == Constants.LEVEL_GOLD){
-                    adapter_prize_cup.setColorFilter(ContextCompat.getColor(context, R.color.gold))
-                }
-
+                adapter_prize_prize_name.text = prize.level_name
+                Glide.with(adapter_prize_cup)
+                    .load(prize.level_image)
+                    .apply(options)
+                    .into(adapter_prize_cup)
             }
         }
 

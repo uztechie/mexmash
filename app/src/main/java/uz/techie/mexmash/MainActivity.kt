@@ -80,8 +80,10 @@ class MainActivity : AppCompatActivity() {
                 bottomBar.visibility = View.GONE
 //                bottomBar.performHide()
 //                bottomNavigationView.visibility = View.GONE
-
             }
+
+
+
         }
 
         fab.setOnClickListener {

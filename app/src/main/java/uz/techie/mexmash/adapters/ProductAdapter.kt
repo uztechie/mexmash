@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.adapter_news.view.*
 import kotlinx.android.synthetic.main.adapter_product.view.*
 import uz.techie.mexmash.R
 import uz.techie.mexmash.models.Product
+import uz.techie.mexmash.util.Constants
 import uz.techie.mexmash.util.Utils
 
 class ProductAdapter:RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
@@ -43,7 +44,13 @@ class ProductAdapter:RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
                 adapter_product_title.text = product.name
                 adapter_product_short_desc.text = product.desc
                 adapter_product_full_desc.text = product.desc
-                adapter_product_point.text = "${product.point} ${context.getString(R.string.bal)}"
+
+                if (Constants.USER_TYPE == Constants.USER_TYPE_SELLER){
+                    adapter_product_point.text = "${product.point} ${context.getString(R.string.bal)}"
+                }
+                else{
+                    adapter_product_point.text = "${product.dealer_point} ${context.getString(R.string.bal)}"
+                }
 
 
                 Glide.with(adapter_product_image)

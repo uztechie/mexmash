@@ -40,6 +40,7 @@ class AppViewModel @Inject constructor(
     var promoCode:MutableLiveData<Resource<PromoCode>> = MutableLiveData()
     val promoCodeHistory:MutableLiveData<Resource<PromoCodeHistory>> = MutableLiveData()
     var updateProfileResponse:MutableLiveData<Resource<Login>> = MutableLiveData()
+    var termsResponse:MutableLiveData<Resource<Terms>> = MutableLiveData()
 
 
 
@@ -263,6 +264,21 @@ class AppViewModel @Inject constructor(
         }
     }
 
+    //terms
+    fun loadTerms(token: String) = viewModelScope.launch {
+        termsResponse.postValue(Resource.Loading())
+        try {
+            val response = repository.loadTerms(token)
+            termsResponse.postValue(handleTerms(response))
+        }catch (e: UnknownHostException) {
+            termsResponse.postValue(Resource.Error("Интернетга боғланишда хатолик!"))
+        } catch (e: InterruptedIOException) {
+            termsResponse.postValue(Resource.Error("Интернетга боғланишда хатолик!"))
+        } catch (e: Exception) {
+            termsResponse.postValue(Resource.Error(message = e.toString()))
+        }
+    }
+
 
 
 
@@ -382,6 +398,16 @@ class AppViewModel @Inject constructor(
         return Resource.Error(response.message())
     }
 
+    private fun handleTerms(response:Response<Terms>):Resource<Terms>{
+        Log.d(TAG, "handleTerms: "+response.body())
+        if (response.isSuccessful){
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
 
 
 
@@ -433,6 +459,12 @@ class AppViewModel @Inject constructor(
         repository.insertNews(list)
     }
     fun getNews() = repository.getNews()
+
+    //terms
+    fun insertTerms(terms: Terms) = viewModelScope.launch {
+        repository.insertTerms(terms)
+    }
+    fun getTerms() = repository.getTerms()
 
 
     //products

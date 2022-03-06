@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mexmash" >
         <activity
+            android:screenOrientation="locked"
             android:name=".MainActivity"
             android:exported="true" >
             <intent-filter>

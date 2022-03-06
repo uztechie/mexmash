@@ -29,7 +29,8 @@
     <string name="tugulgan_kuningizni_tanlang">Туғилган кунингизни танланг</string>
     <string name="telefon_raqami">Телефон рақами</string>
     <string name="chiqish">Чиқиш</string>
-    <string name="tarix">Промо кодлар тарихи</string>
+    <string name="promokodlar_tarix">Промо кодлар тарихи</string>
+    <string name="tarix">Тарих</string>
     <string name="bekor_qilish">Бекор қилиш</string>
     <string name="ok">ОК</string>
     <string name="sizda_quyidagi_sovrinni_yutish">Сизда қуйидаги совринни ютиб олиш имконияти мавжуд:</string>
@@ -53,4 +54,7 @@
     <string name="tizimdan_chiqish">Тизимдан чиқиш</string>
     <string name="agent_kodini_toliq_kiriting">Агент кодини тўлиқ киритинг</string>
     <string name="tasdiqlash_kodini_toliq_kiriting">Тасдиқлаш кодини тўлиқ киритинг</string>
+    <string name="aksiya_shartlari">Аксия шартлари</string>
+    <string name="siz_kodni_5_marta">Сиз кетма-кет 5 марта промо кодни хато киритдингиз, қуйидаги вақтдан кейин қайта уриниб кўринг</string>
+    <string name="promo_kodlar_lotin_harflar_va_raqamlardan_iborat">Промо кодлар лотин ҳарфлари ва рақамлардан иборат</string>
 </resources>

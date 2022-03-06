@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -18,19 +19,19 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_cabinet.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.main_prize.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import uz.techie.mexmash.MainActivity
 import uz.techie.mexmash.R
 import uz.techie.mexmash.adapters.SliderAdapter
 import uz.techie.mexmash.data.AppViewModel
+import uz.techie.mexmash.dialog.TermsBottomSheetDialog
 import uz.techie.mexmash.models.Prize
-import uz.techie.mexmash.util.Constants
-import uz.techie.mexmash.util.MyCarousel
-import uz.techie.mexmash.util.Resource
-import uz.techie.mexmash.util.Utils
+import uz.techie.mexmash.util.*
 
 
 @AndroidEntryPoint
@@ -42,6 +43,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private var userPoint = 0L
     private var userKg = 0L
     private var nearPrizePoint = 0L
+    private var nearPrizeKg = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +62,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initSwipeRefresh()
+
         if (viewModel.getUser().isEmpty()){
             findNavController().navigate(HomeFragmentDirections.actionGlobalLoginFragment())
             return
@@ -67,6 +71,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         else{
             val user = viewModel.getUser()[0]
             Constants.TOKEN = "Token "+user.token
+            Constants.USER_ID = user.id
 
             user.type_name?.let {
                 Constants.USER_TYPE = it
@@ -81,16 +86,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 val user = it[0]
                 Log.d(TAG, "getUser: " + user.phone)
                 userPoint = user.point
-                userKg = user.kg
+                userKg = user.total_kg
                 home_user_point.text = userPoint.toString()
                 home_progress_text_point.text = "$userPoint/$nearPrizePoint"
                 home_progressView_point.progress = userPoint.toFloat()
                 home_progressView_kg.progress = userKg.toFloat()
+                home_progress_text_kg.text = "$userKg/$nearPrizeKg"
                 getPrizeByPoint(userPoint)
             }
         }
-
-
 
 
         viewModel.profile.observe(viewLifecycleOwner){response->
@@ -99,12 +103,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     home_user_progress.isVisible = true
                 }
                 is Resource.Error->{
+                    hideRefresh()
                     home_user_progress.visibility = View.INVISIBLE
                     response.message?.let {
                         Utils.toastIconError(requireActivity(), it)
                     }
                 }
                 is Resource.Success->{
+                    hideRefresh()
                     home_user_progress.visibility = View.INVISIBLE
                     response.data?.let { profile->
                         if (profile.status == 200){
@@ -131,6 +137,40 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             findNavController().navigate(HomeFragmentDirections.actionGlobalNewsFragment())
         }
 
+        home_user_point.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPromoCodeHistoryFragment())
+        }
+
+        prize_layout.setOnClickListener {
+            val menu = (activity as MainActivity).bottomNavigationView
+            menu.selectedItemId = R.id.giftFragment
+        }
+
+        home_terms.setOnClickListener {
+            val termsDialog = TermsBottomSheetDialog(requireContext())
+            termsDialog.show()
+
+            viewModel.getTerms().observe(viewLifecycleOwner){
+                var date = ""
+                var message = ""
+
+                if (it.isNotEmpty()){
+
+                    it[0].data?.let { m->
+                        message = m
+                    }
+                    it[0].updated_at?.let { d->
+                        date = d
+                    }
+                    termsDialog.setMessage(message, date)
+
+                }
+            }
+
+
+        }
+
+
 
 
     }
@@ -141,6 +181,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         observeSLiders()
         observePrizes()
+        observeTerms()
 
         loadAllData()
     }
@@ -155,6 +196,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
             launch {
                 viewModel.loadPrizes(Constants.TOKEN)
+            }
+            launch {
+                viewModel.loadTerms(Constants.TOKEN)
             }
         }
     }
@@ -173,10 +217,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     initProgressPointText(point)
                 }
                 it[0].kg?.let { kg->
+                    nearPrizeKg = kg
                     initProgressKgText(kg)
                 }
 
-                var name = "<strong>"+it[0].name+"</strong>"
                 home_prize_tv.text = Html.fromHtml(getString(R.string.sizda_quyidagi_sovrinni_yutish))
                 initPrizeToView(it[0])
             }
@@ -215,16 +259,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         home_prize_point.text = "${prize.point} ${getString(R.string.bal)}"
         home_prize_kg.text = "${prize.kg} ${getString(R.string.kg)}"
 
-        if (prize.level_id == Constants.LEVEL_SILVER){
-            home_prize_cup.setColorFilter(ContextCompat.getColor(requireContext(), R.color.silver))
-        }
-        else if (prize.level_id == Constants.LEVEL_BRONZE){
-            home_prize_cup.setColorFilter(ContextCompat.getColor(requireContext(), R.color.bronze))
-        }
-        else if (prize.level_id == Constants.LEVEL_GOLD){
-            home_prize_cup.setColorFilter(ContextCompat.getColor(requireContext(), R.color.gold))
-        }
-
+        home_prize_prize_name.text = prize.level_name
+        Glide.with(home_prize_cup)
+            .load(prize.level_image)
+            .apply(options)
+            .into(home_prize_cup)
 
     }
 
@@ -237,11 +276,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                 }
                 is Resource.Error->{
+                    hideRefresh()
                     response.message?.let {
                         Utils.toastIconError(requireActivity(), "loadSliders "+it)
                     }
                 }
                 is Resource.Success->{
+                    hideRefresh()
                     response.data?.let {
                         viewModel.insertSliders(it)
                     }
@@ -259,11 +300,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
                 }
                 is Resource.Error->{
+                    hideRefresh()
                     response.message?.let {
                         Utils.toastIconError(requireActivity(), "loadPrizes "+it)
                     }
                 }
                 is Resource.Success->{
+                    hideRefresh()
                     response.data?.let {
                         viewModel.insertPrizes(it)
                     }
@@ -272,6 +315,35 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
     }
+
+
+    private fun observeTerms(){
+        viewModel.termsResponse.observe(viewLifecycleOwner){ response->
+            when(response){
+                is Resource.Loading->{
+
+                }
+                is Resource.Error->{
+                    hideRefresh()
+                    response.message?.let {
+                        Utils.toastIconError(requireActivity(), "loadTerms "+it)
+                    }
+                }
+                is Resource.Success->{
+                    hideRefresh()
+                    response.data?.let {
+                        if (it.status == 200){
+                            viewModel.insertTerms(it)
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
+
+
 
     private var options: RequestOptions = RequestOptions()
         .centerCrop()
@@ -284,6 +356,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private fun subscribeTopic(topic:String){
         Log.d(TAG, "subscribeTopic: topic $topic")
         Firebase.messaging.subscribeToTopic(topic)
+    }
+
+    private fun initSwipeRefresh() {
+        home_refresh.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener {
+            override fun onRefresh() {
+                loadAllData()
+            }
+
+        })
+    }
+
+    private fun hideRefresh(){
+        home_refresh.isRefreshing = false
     }
 
 

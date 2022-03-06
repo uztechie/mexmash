@@ -43,6 +43,9 @@ class AppRepository @Inject constructor(
     //update profile
     suspend fun updateProfile(token: String, map: HashMap<String, Any>) = retrofitApi.updateProfile(token, map)
 
+    //terms
+    suspend fun loadTerms(token: String) = retrofitApi.loadTerms(token)
+
 
     //database
     suspend fun insertRegions(list:List<Region>) = dao.insertRegions(list)
@@ -72,6 +75,10 @@ class AppRepository @Inject constructor(
     //news
     suspend fun insertNews(list:List<News>) = dao.deleteAndInsertNews(list)
     fun getNews() = dao.getNews()
+
+    //terms
+    suspend fun insertTerms(terms: Terms) = dao.deleteAndInsertTerms(terms)
+    fun getTerms() = dao.getTerms()
 
     //product
     suspend fun insertProducts(list:List<Product>) = dao.deleteAndInsertProducts(list)

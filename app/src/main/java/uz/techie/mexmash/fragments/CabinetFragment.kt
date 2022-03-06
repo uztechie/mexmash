@@ -18,10 +18,10 @@ import uz.techie.mexmash.R
 import uz.techie.mexmash.data.AppViewModel
 import uz.techie.mexmash.dialog.ConfirmDialog
 import uz.techie.mexmash.dialog.CustomProgressDialog
+import uz.techie.mexmash.dialog.TermsBottomSheetDialog
 import uz.techie.mexmash.models.User
 import uz.techie.mexmash.util.Constants
 import uz.techie.mexmash.util.Resource
-import uz.techie.mexmash.util.SharedPref
 import uz.techie.mexmash.util.Utils
 
 @AndroidEntryPoint
@@ -62,13 +62,44 @@ class CabinetFragment:Fragment(R.layout.fragment_cabinet), ConfirmDialog.Confirm
             confirmDialog.setMessage(getString(R.string.siz_rostdan_tizimdan_chiqmoqchimisiz))
         }
 
+
+        if (Constants.USER_TYPE == Constants.USER_TYPE_DEALER){
+            cabinet_history_title.text = getString(R.string.tarix)
+        }
         cabinet_history.setOnClickListener {
             findNavController().navigate(CabinetFragmentDirections.actionCabinetFragmentToPromoCodeHistoryFragment())
         }
 
+
         cabinet_user_card.setOnClickListener {
             updateUserBottomSheet()
         }
+
+        cabinet_terms.setOnClickListener {
+            val termsDialog = TermsBottomSheetDialog(requireContext())
+            termsDialog.show()
+
+            viewModel.getTerms().observe(viewLifecycleOwner){
+                var date = ""
+                var message = ""
+
+                if (it.isNotEmpty()){
+
+                    it[0].data?.let { m->
+                        message = m
+                    }
+                    it[0].updated_at?.let { d->
+                        date = d
+                    }
+                    termsDialog.setMessage(message, date)
+
+                }
+            }
+
+
+        }
+
+
 
         cabinet_version_tv.text = getString(R.string.versiya)+" "+BuildConfig.VERSION_NAME
 

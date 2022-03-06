@@ -14,5 +14,6 @@ data class Prize(
     var point:Long? = null,
     var kg:Long? = null,
     var level_name:String? = null,
-    var level_id:Int? = null
+    var level_id:Int? = null,
+    var level_image:String? = null
 )

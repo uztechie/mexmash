@@ -6,6 +6,7 @@ object Constants {
     const val MY_TOKEN = "324nkw1231lqejioqwe7231;qqwew32eqw31212mcxmnak12sdoqwp2wl3223fi234923]zad2adA23WDAas323Qadasdzxzzzzz3n12oi3n123123.eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9"
 
     var TOKEN = ""
+    var USER_ID = -10
     var USER_TYPE = ""
 
     const val USER_TYPE_SELLER = "seller"

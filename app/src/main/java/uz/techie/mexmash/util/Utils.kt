@@ -15,9 +15,11 @@ import android.widget.Toast
 import androidx.cardview.widget.CardView
 import com.google.android.material.snackbar.Snackbar
 import uz.techie.mexmash.R
+import java.sql.Time
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.collections.HashMap
 
 object Utils {
@@ -102,6 +104,32 @@ object Utils {
         val date = dateFormat.parse(previousDate)
         dateFormat = SimpleDateFormat("dd.MM.yyyy")
         return dateFormat.format(date!!)
+    }
+
+
+    fun reformatTimeOnlyFromMillis(millis: Long):String {
+        var dateFormat = SimpleDateFormat("HH:mm:ss")
+        val date = Date(millis)
+        return dateFormat.format(date)
+    }
+
+    fun reformatDateTimeOnlyFromMillis(millis: Long):String {
+        var dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val date = Date(millis)
+        return dateFormat.format(date)
+    }
+
+    fun getTimeFromCalendar(millis: Long):String{
+        var remainingMillis = millis
+        val hour = TimeUnit.MILLISECONDS.toHours(remainingMillis)
+        remainingMillis -= TimeUnit.HOURS.toMillis(hour)
+
+        val min = TimeUnit.MILLISECONDS.toMinutes(remainingMillis)
+        remainingMillis -= TimeUnit.MINUTES.toMillis(min)
+
+        val sec = TimeUnit.MILLISECONDS.toSeconds(remainingMillis)
+
+        return String.format("%02d:%02d:%02d",hour, min, sec)
     }
 
 

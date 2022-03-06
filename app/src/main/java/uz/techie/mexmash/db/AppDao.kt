@@ -121,4 +121,23 @@ interface AppDao {
     @Query("select * from news  order by created_at desc")
     fun getNews():LiveData<List<News>>
 
+    //terms
+    @Insert
+    suspend fun insertTerms(term:Terms)
+
+    @Query("delete from terms")
+    suspend fun deleteTerms()
+
+    @Transaction
+    suspend fun deleteAndInsertTerms(term: Terms){
+        deleteTerms()
+        insertTerms(term)
+    }
+
+    @Query("select * from terms limit 1")
+    fun getTerms():LiveData<List<Terms>>
+
+
+
+
 }

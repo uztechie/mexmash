@@ -121,6 +121,12 @@ interface RetrofitApi {
     ): Response<Login>
 
 
+    //terms
+    @GET("privacy-policy/")
+    suspend fun loadTerms(
+        @Header("Authorization") token: String,
+        @Header("MyToken") myToken: String = Constants.MY_TOKEN
+    ): Response<Terms>
 
 
 

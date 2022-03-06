@@ -94,6 +94,34 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="16dp">
+
+            <LinearLayout
+                android:id="@+id/cabinet_terms"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/small_icon_bg"
+                    android:padding="4dp"
+                    android:src="@drawable/ic_baseline_campaign_24"
+                    app:tint="@color/white" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/cabinet_terms_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_right_24"
+                    android:text="@string/aksiya_shartlari"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:drawableTint="@color/gray" />
+            </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/cabinet_history"
                 android:layout_width="match_parent"
@@ -107,14 +135,15 @@
                     android:background="@drawable/small_icon_bg"
                     android:padding="4dp"
                     android:src="@drawable/ic_baseline_restore_24"
-                    app:tint="@color/colorPrimary" />
+                    app:tint="@color/white" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/cabinet_history_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
                     android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_right_24"
-                    android:text="@string/tarix"
+                    android:text="@string/promokodlar_tarix"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:drawableTint="@color/gray" />
@@ -139,7 +168,7 @@
                     android:background="@drawable/small_icon_bg"
                     android:padding="4dp"
                     android:src="@drawable/ic_logout"
-                    app:tint="@color/colorPrimary" />
+                    app:tint="@color/white" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="match_parent"

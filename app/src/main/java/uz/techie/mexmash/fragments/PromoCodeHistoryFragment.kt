@@ -8,17 +8,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.custom_toolbar.*
-import kotlinx.android.synthetic.main.fragment_cabinet.*
-import kotlinx.android.synthetic.main.fragment_news.*
 import kotlinx.android.synthetic.main.fragment_promocode_hsitory.*
-import uz.techie.mexmash.MainActivity
 import uz.techie.mexmash.R
 import uz.techie.mexmash.adapters.PromoCodeAdapter
 import uz.techie.mexmash.data.AppViewModel
 import uz.techie.mexmash.dialog.CustomProgressDialog
 import uz.techie.mexmash.util.Constants
 import uz.techie.mexmash.util.Resource
-import uz.techie.mexmash.util.SharedPref
 import uz.techie.mexmash.util.Utils
 
 @AndroidEntryPoint
@@ -80,11 +76,18 @@ class PromoCodeHistoryFragment:Fragment(R.layout.fragment_promocode_hsitory){
 
     private fun initToolbar() {
 //        toolbar_layout.setBackgroundColor(Color.TRANSPARENT)
-        toolbar_title.text = getString(R.string.tarix)
+
         toolbar_btn_back.setOnClickListener {
             findNavController().popBackStack()
         }
 //        toolbar_btn_back.isVisible = false
+
+        if (Constants.USER_TYPE == Constants.USER_TYPE_DEALER){
+            toolbar_title.text = getString(R.string.tarix)
+        }
+        else{
+            toolbar_title.text = getString(R.string.promokodlar_tarix)
+        }
     }
 
 }

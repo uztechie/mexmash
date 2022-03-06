@@ -15,10 +15,10 @@ import uz.techie.mexmash.R
 import uz.techie.mexmash.adapters.PrizeAdapter
 import uz.techie.mexmash.data.AppViewModel
 import uz.techie.mexmash.dialog.CustomProgressDialog
+import uz.techie.mexmash.dialog.ImageDialog
 import uz.techie.mexmash.models.Prize
 import uz.techie.mexmash.util.Constants
 import uz.techie.mexmash.util.Resource
-import uz.techie.mexmash.util.SharedPref
 import uz.techie.mexmash.util.Utils
 
 @AndroidEntryPoint
@@ -33,11 +33,14 @@ class GiftFragment:Fragment(R.layout.fragment_gift) {
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
 
-
         customProgressDialog = CustomProgressDialog(requireContext())
         prizeAdapter = PrizeAdapter(object : PrizeAdapter.PrizeAdapterCallback {
             override fun onItemClick(url: String) {
-                findNavController().navigate(GiftFragmentDirections.actionGiftFragmentToShowImageFragment(url))
+                var imageDialog: ImageDialog = ImageDialog(requireContext())
+                imageDialog.show()
+                imageDialog.setImage(url)
+
+//                findNavController().navigate(GiftFragmentDirections.actionGiftFragmentToShowImageFragment(url))
             }
         })
 
@@ -64,6 +67,7 @@ class GiftFragment:Fragment(R.layout.fragment_gift) {
                 customProgressDialog.dismiss()
             }
             prizeAdapter.differ.submitList(it)
+
         }
     }
 
@@ -72,7 +76,7 @@ class GiftFragment:Fragment(R.layout.fragment_gift) {
             when(response){
                 is Resource.Loading->{
                     horizontal_progressbar.visibility = View.VISIBLE
-                    customProgressDialog.show()
+//                    customProgressDialog.show()
                 }
                 is Resource.Error->{
                     horizontal_progressbar.visibility = View.GONE
@@ -92,10 +96,12 @@ class GiftFragment:Fragment(R.layout.fragment_gift) {
                             if (it.isNotEmpty()){
                                 val user = it[0]
                                 val prize = Prize(-1)
-                                prize.kg = user.kg
+                                prize.kg = user.total_kg
                                 prize.image = ""
                                 prize.point = user.point
                                 prize.name = user.first_name + " "+user.last_name
+                                prize.level_image = user.level_image
+                                prize.level_name = user.level_name
 
                                 prizeList.add(prize)
                                 viewModel.insertPrizes(prizeList)

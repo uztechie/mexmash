@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_login.*
-import uz.techie.mexmash.MainActivity
 import uz.techie.mexmash.R
 import uz.techie.mexmash.data.AppViewModel
 import uz.techie.mexmash.dialog.CustomProgressDialog
@@ -27,7 +26,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var countDownTimer: CountDownTimer
     private var mMode = MODE_PHONE_INPUT
 
-    private val START_TIME = 12000L
+    private val START_TIME = 120000L
     private var leftTime = START_TIME
     private var isTimerRunning = false
 
@@ -99,6 +98,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                                 user.token?.let {
                                     Constants.TOKEN = "Token $it"
                                 }
+
                                 Handler().postDelayed(object:Runnable {
                                     override fun run() {
                                         findNavController().navigate(LoginFragmentDirections.actionGlobalHomeFragment())

@@ -49,7 +49,7 @@ class NewsFragment:Fragment(R.layout.fragment_news){
             when(response){
                 is Resource.Loading->{
                     horizontal_progressbar.visibility = View.VISIBLE
-                    customProgressDialog.show()
+//                    customProgressDialog.show()
                 }
                 is Resource.Error->{
                     horizontal_progressbar.visibility = View.GONE

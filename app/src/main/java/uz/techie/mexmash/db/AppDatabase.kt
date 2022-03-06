@@ -14,7 +14,8 @@ import uz.techie.mexmash.models.*
         Slider::class,
         Prize::class,
         News::class,
-        Product::class], version = 7
+        Terms::class,
+        Product::class], version = 11
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun AppDao(): AppDao

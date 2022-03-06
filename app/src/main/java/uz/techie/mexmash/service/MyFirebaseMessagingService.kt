@@ -107,7 +107,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     .setStyle(NotificationCompat.BigTextStyle().bigText(message))
                     .setAutoCancel(true)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setSmallIcon(R.drawable.logo)
+                    .setSmallIcon(R.drawable.logo_white)
                     .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
                     .setContentIntent(pendingIntent)
 
@@ -121,7 +121,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     .setContentText(message)
                     .setAutoCancel(true)
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setSmallIcon(R.drawable.logo)
+                    .setSmallIcon(R.drawable.logo_white)
                     .setLargeIcon(bitmap)
                     .setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap).bigLargeIcon(null))
                     .setColor(ContextCompat.getColor(this, R.color.colorPrimary))

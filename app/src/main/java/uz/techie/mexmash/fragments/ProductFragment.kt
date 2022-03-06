@@ -48,7 +48,7 @@ class ProductFragment:Fragment(R.layout.fragment_product) {
         viewModel.products.observe(viewLifecycleOwner){ response->
             when(response){
                 is Resource.Loading->{
-                    customProgressDialog.show()
+//                    customProgressDialog.show()
                     horizontal_progressbar.visibility = View.VISIBLE
                 }
                 is Resource.Error->{

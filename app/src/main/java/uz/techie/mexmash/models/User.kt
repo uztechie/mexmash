@@ -18,6 +18,8 @@ data class User(
     val street:String? = null,
     val type:String? = null,
     val type_name:String? = null,
+    val level_name:String? = null,
+    val level_image:String? = null,
     val point:Long = 0,
-    val kg:Long = 0
+    val total_kg:Long = 0
 )
