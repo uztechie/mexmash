@@ -20,6 +20,6 @@ data class User(
     val type_name:String? = null,
     val level_name:String? = null,
     val level_image:String? = null,
-    val point:Long = 0,
-    val total_kg:Long = 0
+    val point:Long? = 0,
+    val total_kg:Long? = 0
 )

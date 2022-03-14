@@ -8,13 +8,13 @@ data class Product(
 
     @PrimaryKey
     val id:Int,
-    val name:String,
-    val desc:String,
-    val code:String,
-    val image:String,
-    val point:Int,
-    val dealer_point:Int,
-    val is_active:String,
-    val created_at:String
+    val name:String? = null,
+    val desc:String? = null,
+    val code:String? = null,
+    val image:String? = null,
+    val point:Int? = null,
+    val dealer_point:Int? = null,
+    val is_active:String? = null,
+    val created_at:String? = null
 
 )

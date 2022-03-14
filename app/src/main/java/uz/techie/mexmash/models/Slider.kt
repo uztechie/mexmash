@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 data class Slider(
     @PrimaryKey
     val id:Int,
-    val image:String,
-    val type:Int,
+    val image:String? = null,
+    val type:Int? = null,
 )

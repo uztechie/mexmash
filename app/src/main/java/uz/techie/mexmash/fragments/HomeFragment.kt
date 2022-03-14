@@ -85,8 +85,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             if (it.isNotEmpty()){
                 val user = it[0]
                 Log.d(TAG, "getUser: " + user.phone)
-                userPoint = user.point
-                userKg = user.total_kg
+                userPoint = user.point?:0
+                userKg = user.total_kg?:0
                 home_user_point.text = userPoint.toString()
                 home_progress_text_point.text = "$userPoint/$nearPrizePoint"
                 home_progressView_point.progress = userPoint.toFloat()

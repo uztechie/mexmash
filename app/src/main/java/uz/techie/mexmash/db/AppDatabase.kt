@@ -15,7 +15,7 @@ import uz.techie.mexmash.models.*
         Prize::class,
         News::class,
         Terms::class,
-        Product::class], version = 11
+        Product::class], version = 13
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun AppDao(): AppDao

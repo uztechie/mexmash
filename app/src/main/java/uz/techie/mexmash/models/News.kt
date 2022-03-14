@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 data class News(
     @PrimaryKey
     val id:Int,
-    val title:String,
-    val desc:String,
-    val image:String,
-    val created_at:String
+    val title:String? = null,
+    val desc:String? = null,
+    val image:String? = null,
+    val created_at:String? = null
 )

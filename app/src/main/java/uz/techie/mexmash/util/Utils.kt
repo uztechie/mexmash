@@ -76,14 +76,14 @@ object Utils {
         return dateFormat.format(date!!)
     }
 
-    fun reformatDateFromStringLocale(previousDate: String):String {
+    fun reformatDateFromStringLocale(previousDate: String?):String {
         return try {
             var dateFormat = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
             val date = dateFormat.parse(previousDate)
             dateFormat = SimpleDateFormat("dd MMM yyyy HH:mm", Locale.getDefault())
             dateFormat.format(date!!)
         }catch (e:Exception){
-            previousDate
+            previousDate?:""
         }
     }
 
