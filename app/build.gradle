@@ -10,14 +10,22 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('D:\\Projects\\AndroidProject\\Custom\\Mexmash\\key\\keyyy.jks')
+            storePassword 'ibroxim2407'
+            keyAlias 'mexmash'
+            keyPassword 'ibroxim2407'
+        }
+    }
     compileSdk 31
 
     defaultConfig {
         applicationId "uz.techie.mexmash"
         minSdk 21
         targetSdk 31
-        versionCode 3
-        versionName '1.0.3'
+        versionCode 6
+        versionName '1.0.6'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -25,6 +33,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+//            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -153,5 +162,8 @@ dependencies {
     //ACRA
     implementation "ch.acra:acra-mail:5.7.0"
     implementation "ch.acra:acra-dialog:5.7.0"
+
+    implementation 'com.google.android.gms:play-services-auth:20.1.0'
+    implementation 'com.google.android.gms:play-services-auth-api-phone:18.0.1'
 
 }

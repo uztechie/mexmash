@@ -2,7 +2,7 @@ package uz.techie.mexmash.util
 
 object Constants {
 
-    const val BASE_URL = "https://cs27146.tmweb.ru/api/"
+    const val BASE_URL = "https://mexmashapp.uz/api/"
     const val MY_TOKEN = "324nkw1231lqejioqwe7231;qqwew32eqw31212mcxmnak12sdoqwp2wl3223fi234923]zad2adA23WDAas323Qadasdzxzzzzz3n12oi3n123123.eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9"
 
     var TOKEN = ""
@@ -24,6 +24,8 @@ object Constants {
     const val LEVEL_BRONZE = 1
     const val LEVEL_SILVER = 2
     const val LEVEL_GOLD = 3
+
+    var TELEGRAM_URL = ""
 
 
 }

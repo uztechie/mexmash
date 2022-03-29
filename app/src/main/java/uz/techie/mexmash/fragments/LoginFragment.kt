@@ -1,5 +1,8 @@
 package uz.techie.mexmash.fragments
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -9,18 +12,27 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.auth.api.phone.SmsRetriever
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.toast_icon_text.*
 import uz.techie.mexmash.R
+import uz.techie.mexmash.broadcast.SmsReceiver
 import uz.techie.mexmash.data.AppViewModel
 import uz.techie.mexmash.dialog.CustomProgressDialog
 import uz.techie.mexmash.util.Constants
 import uz.techie.mexmash.util.Resource
-import uz.techie.mexmash.util.SharedPref
 import uz.techie.mexmash.util.Utils
+import java.util.regex.Pattern
+
 
 @AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
+
+    private val REQUEST_USER_CONSENT = 222
+    lateinit var smsReceiver: SmsReceiver
+    var otpCode = ""
+
     private val TAG = "LoginFragment"
     private lateinit var customProgressDialog: CustomProgressDialog
     private lateinit var countDownTimer: CountDownTimer
@@ -55,6 +67,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         super.onViewCreated(view, savedInstanceState)
         stepInputPhone()
         customProgressDialog = CustomProgressDialog(requireContext())
+        startSmartUserConsent()
+
+
 
 
         viewModel.checkPhone.observe(viewLifecycleOwner) { response ->
@@ -282,6 +297,30 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     }
 
+    private fun startSmartUserConsent(){
+        val client = SmsRetriever.getClient(requireContext())
+        client.startSmsUserConsent(null)
+    }
+
+    private fun registerSmsReceiver(){
+        smsReceiver = SmsReceiver(object : SmsReceiver.SmsReceiverCallBack {
+            override fun onSuccess(intent: Intent?) {
+                startActivityForResult(intent, REQUEST_USER_CONSENT)
+            }
+
+            override fun onFailure() {
+
+            }
+
+        })
+
+        val intentFilter = IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION)
+        requireActivity().registerReceiver(smsReceiver, intentFilter)
+    }
+
+    private fun unRegisterSmsReceiver(){
+        requireActivity().unregisterReceiver(smsReceiver)
+    }
 
     private fun stepInputPhone() {
         login_phone_layout.visibility = View.VISIBLE
@@ -366,12 +405,38 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onStart() {
         super.onStart()
+        registerSmsReceiver()
     }
 
     override fun onStop() {
         super.onStop()
         pauseTimer()
+        unRegisterSmsReceiver()
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == REQUEST_USER_CONSENT){
+            if (resultCode == RESULT_OK && data != null){
+                val message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE)?:""
+                getOtpFromMessage(message)
+                println("onActivityResult otp $message")
+
+
+            }
+        }
+        println("onActivityResult otp triggered $otpCode")
+    }
+
+    private fun getOtpFromMessage(message: String) {
+        val pattern = Pattern.compile("(|^)\\d{6}")
+        val matcher = pattern.matcher(message)
+        if (matcher.find()){
+            otpCode = matcher.group()
+            println("getOtpFromMessage otp "+otpCode)
+        }
+    }
+
 
     companion object {
         val MODE_PHONE_INPUT = "MODE_PHONE_INPUT"

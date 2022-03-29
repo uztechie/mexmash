@@ -46,6 +46,9 @@ class AppRepository @Inject constructor(
     //terms
     suspend fun loadTerms(token: String) = retrofitApi.loadTerms(token)
 
+    //telegram
+    suspend fun loadTelegram() = retrofitApi.loadTelegram()
+
 
     //database
     suspend fun insertRegions(list:List<Region>) = dao.insertRegions(list)

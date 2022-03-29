@@ -209,6 +209,7 @@
             app:layout_constraintTop_toBottomOf="@+id/login_code_et" />
 
         <TextView
+            android:visibility="gone"
             android:layout_marginTop="12dp"
             android:gravity="center"
             android:textSize="20sp"

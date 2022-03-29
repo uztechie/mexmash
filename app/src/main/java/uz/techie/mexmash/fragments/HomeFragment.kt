@@ -1,5 +1,7 @@
 package uz.techie.mexmash.fragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
@@ -106,7 +108,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     hideRefresh()
                     home_user_progress.visibility = View.INVISIBLE
                     response.message?.let {
-                        Utils.toastIconError(requireActivity(), it)
+//                        Utils.toastIconError(requireActivity(), it)
                     }
                 }
                 is Resource.Success->{
@@ -170,6 +172,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         }
 
+        home_telegram.setOnClickListener {
+            if (Constants.TELEGRAM_URL.isNotEmpty()){
+                openTelegram(Constants.TELEGRAM_URL)
+            }
+        }
+
 
 
 
@@ -186,6 +194,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         loadAllData()
     }
 
+
     private fun loadAllData(){
         CoroutineScope(Dispatchers.IO).launch {
             launch {
@@ -201,6 +210,35 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 viewModel.loadTerms(Constants.TOKEN)
             }
         }
+    }
+
+    fun loadTelegram(){
+        viewModel.telegramResponse.observe(this){ response->
+            when(response){
+                is Resource.Loading->{
+
+                }
+                is Resource.Error->{
+                    response.message?.let {
+//                        Utils.toastIconError(this, it)
+                    }
+                }
+                is Resource.Success->{
+                    response.data?.let {
+                        if (it.status == 200){
+                            it.data?.url?.let { url->
+                                Constants.TELEGRAM_URL = url
+                            }
+                        }
+
+                        println("loadTelegram data "+it.data?.url)
+                    }
+                }
+
+            }
+        }
+
+        viewModel.loadPrizes(Constants.TOKEN)
     }
 
 
@@ -278,7 +316,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 is Resource.Error->{
                     hideRefresh()
                     response.message?.let {
-                        Utils.toastIconError(requireActivity(), "loadSliders "+it)
+//                        Utils.toastIconError(requireActivity(), "loadSliders "+it)
                     }
                 }
                 is Resource.Success->{
@@ -302,7 +340,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 is Resource.Error->{
                     hideRefresh()
                     response.message?.let {
-                        Utils.toastIconError(requireActivity(), "loadPrizes "+it)
+//                        Utils.toastIconError(requireActivity(), "loadPrizes "+it)
                     }
                 }
                 is Resource.Success->{
@@ -326,7 +364,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 is Resource.Error->{
                     hideRefresh()
                     response.message?.let {
-                        Utils.toastIconError(requireActivity(), "loadTerms "+it)
+//                        Utils.toastIconError(requireActivity(), "loadTerms "+it)
                     }
                 }
                 is Resource.Success->{
@@ -369,6 +407,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun hideRefresh(){
         home_refresh.isRefreshing = false
+    }
+
+
+    private fun openTelegram(url:String){
+        var mUrl = url
+        if (!mUrl.contains("http")){
+            mUrl = "https://$mUrl"
+        }
+
+        val webUrl = Uri.parse(mUrl)
+        val intent = Intent(Intent.ACTION_VIEW, webUrl)
+        if (intent.resolveActivity(requireActivity().getPackageManager()) != null){
+            startActivity(intent)
+        }
+
     }
 
 

@@ -28,7 +28,7 @@
             <com.google.android.material.textview.MaterialTextView
                 android:paddingHorizontal="8dp"
                 android:paddingVertical="2dp"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:background="@drawable/rounded_primary_alpha_bg"
                 android:gravity="center"
                 app:layout_constraintTop_toTopOf="parent"
@@ -42,6 +42,17 @@
                 android:drawableStart="@drawable/ic_baseline_campaign_24"
                 android:drawableTint="@color/white"
                 android:drawablePadding="4dp"/>
+
+            <ImageView
+                android:layout_margin="12dp"
+                android:id="@+id/home_telegram"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_telegram_outline"
+                android:layout_marginStart="4dp"
+                app:layout_constraintEnd_toStartOf="@+id/home_news"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/white" />
 
 
             <ImageView

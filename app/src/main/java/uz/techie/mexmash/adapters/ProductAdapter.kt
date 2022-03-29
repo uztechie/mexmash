@@ -1,5 +1,6 @@
 package uz.techie.mexmash.adapters
 
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,9 +42,9 @@ class ProductAdapter:RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
         fun bind(product: Product) {
             itemView.apply {
-                adapter_product_title.text = product.name
-                adapter_product_short_desc.text = product.desc
-                adapter_product_full_desc.text = product.desc
+                adapter_product_title.text = Html.fromHtml(product.name?:"")
+                adapter_product_short_desc.text = Html.fromHtml(product.desc?:"")
+                adapter_product_full_desc.text = Html.fromHtml(product.desc?:"")
 
                 if (Constants.USER_TYPE == Constants.USER_TYPE_SELLER){
                     adapter_product_point.text = "${product.point} ${context.getString(R.string.bal)}"

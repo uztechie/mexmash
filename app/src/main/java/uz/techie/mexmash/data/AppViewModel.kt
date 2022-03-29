@@ -41,6 +41,7 @@ class AppViewModel @Inject constructor(
     val promoCodeHistory:MutableLiveData<Resource<PromoCodeHistory>> = MutableLiveData()
     var updateProfileResponse:MutableLiveData<Resource<Login>> = MutableLiveData()
     var termsResponse:MutableLiveData<Resource<Terms>> = MutableLiveData()
+    var telegramResponse:MutableLiveData<Resource<TelegramResponse>> = MutableLiveData()
 
 
 
@@ -280,6 +281,21 @@ class AppViewModel @Inject constructor(
     }
 
 
+    //terms
+    fun loadTelegram() = viewModelScope.launch {
+        telegramResponse.postValue(Resource.Loading())
+        try {
+            val response = repository.loadTelegram()
+            telegramResponse.postValue(handleTelegram(response))
+        }catch (e: UnknownHostException) {
+            telegramResponse.postValue(Resource.Error("Интернетга боғланишда хатолик!"))
+        } catch (e: InterruptedIOException) {
+            telegramResponse.postValue(Resource.Error("Интернетга боғланишда хатолик!"))
+        } catch (e: Exception) {
+            telegramResponse.postValue(Resource.Error(message = e.toString()))
+        }
+    }
+
 
 
 
@@ -400,6 +416,16 @@ class AppViewModel @Inject constructor(
 
     private fun handleTerms(response:Response<Terms>):Resource<Terms>{
         Log.d(TAG, "handleTerms: "+response.body())
+        if (response.isSuccessful){
+            response.body()?.let {
+                return Resource.Success(it)
+            }
+        }
+        return Resource.Error(response.message())
+    }
+
+    private fun handleTelegram(response:Response<TelegramResponse>):Resource<TelegramResponse>{
+        Log.d(TAG, "handleTelegram: "+response.body())
         if (response.isSuccessful){
             response.body()?.let {
                 return Resource.Success(it)

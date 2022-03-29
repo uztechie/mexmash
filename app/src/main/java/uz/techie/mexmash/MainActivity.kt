@@ -18,6 +18,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.FirebaseApp
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
@@ -44,6 +45,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        FirebaseApp.initializeApp(this)
 
         if (viewModel.getUser().isNotEmpty()){
             Constants.TOKEN = "Token "+viewModel.getUser()[0].token
@@ -123,6 +125,7 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         loadSliders()
         loadPrizes()
+        loadTelegram()
         checkUserType()
 
     }
@@ -171,6 +174,35 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.loadPrizes(Constants.TOKEN)
+    }
+
+    fun loadTelegram(){
+        viewModel.telegramResponse.observe(this){ response->
+            when(response){
+                is Resource.Loading->{
+
+                }
+                is Resource.Error->{
+                    response.message?.let {
+//                        Utils.toastIconError(this, it)
+                    }
+                }
+                is Resource.Success->{
+                    response.data?.let {
+                        if (it.status == 200){
+                            it.data?.url?.let { url->
+                                Constants.TELEGRAM_URL = url
+                            }
+                        }
+
+                        println("loadTelegram data "+it.data?.url)
+                    }
+                }
+
+            }
+        }
+
+        viewModel.loadTelegram()
     }
 
 

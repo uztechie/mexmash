@@ -1,5 +1,6 @@
 package uz.techie.mexmash.adapters
 
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,9 +45,9 @@ class NewsAdapter:RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
         fun bind(news: News) {
             itemView.apply {
-                adapter_news_title.text = news.title
-                adapter_news_short_desc.text = news.desc
-                adapter_news_full_desc.text = news.desc
+                adapter_news_title.text = Html.fromHtml(news.title?:"")
+                adapter_news_short_desc.text = Html.fromHtml(news.desc?:"")
+                adapter_news_full_desc.text = Html.fromHtml(news.desc?:"")
                 adapter_news_date.text = Utils.reformatDateFromStringLocale(news.created_at)
 
 
