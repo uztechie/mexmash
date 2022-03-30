@@ -434,6 +434,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         if (matcher.find()){
             otpCode = matcher.group()
             println("getOtpFromMessage otp "+otpCode)
+            login_code_et.setText(otpCode)
+
         }
     }
 
