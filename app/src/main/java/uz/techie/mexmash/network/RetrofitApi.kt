@@ -128,7 +128,7 @@ interface RetrofitApi {
         @Header("MyToken") myToken: String = Constants.MY_TOKEN
     ): Response<Terms>
 
-    //terms
+    //telegram
     @GET("data/")
     suspend fun loadTelegram(
         @Header("MyToken") myToken: String = Constants.MY_TOKEN

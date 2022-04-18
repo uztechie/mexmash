@@ -7,6 +7,42 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:207242735046:android:2f2284f7417fb47a2756c7",
+        "android_client_info": {
+          "package_name": "uz.ibroxim.mexmash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "207242735046-627eafj5ggio9ihr6h5paobg1k2009a5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJ85KM43P4tV5EpEgnMZJpRaPYV-4MTqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "207242735046-627eafj5ggio9ihr6h5paobg1k2009a5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "207242735046-83uug2f18b2pphp37fg3952tf9mc0m60.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "uz.techie.mexmashapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:207242735046:android:263b0cc6b9d141ac2756c7",
         "android_client_info": {
           "package_name": "uz.techie.mexmash"
@@ -29,6 +65,13 @@
             {
               "client_id": "207242735046-627eafj5ggio9ihr6h5paobg1k2009a5.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "207242735046-83uug2f18b2pphp37fg3952tf9mc0m60.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "uz.techie.mexmashapp"
+              }
             }
           ]
         }

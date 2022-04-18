@@ -281,7 +281,7 @@ class AppViewModel @Inject constructor(
     }
 
 
-    //terms
+    //telegram
     fun loadTelegram() = viewModelScope.launch {
         telegramResponse.postValue(Resource.Loading())
         try {
